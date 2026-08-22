@@ -11,7 +11,7 @@
 # =====================================================================
 
 # 👇 BOT TOKENNI SHU YERGA YOZING (tirnoqlar ichida)
-BOT_TOKEN = "8612213994:AAFqPR7TxDFdqMTZTWNXv0vcAg6bbRzWvOM"
+BOT_TOKEN = "8612213994:AAGlwBya_W6scHJnH972VUflKWPk_4NHdMQ"
 
 import logging
 import os
