@@ -11,7 +11,7 @@
 # =====================================================================
 
 # 👇 BOT TOKENNI SHU YERGA YOZING (tirnoqlar ichida)
-BOT_TOKEN = "8612213994:AAGlwBya_W6scHJnH972VUflKWPk_4NHdMQ"
+BOT_TOKEN = "8612213994:AAG5Wi3fQPoXB8ImqjxJEVVsiGs840-janA"
 
 import logging
 import os
@@ -130,7 +130,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def name_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    context.user_data["company_name"] = update.message.text.strip()
+    name = update.message.text.strip()
+    if not name:
+        await update.message.reply_text("Firma nomi bo'sh bo'lmasin. Qaytadan kiriting:")
+        return NAME_STATE
+    context.user_data["company_name"] = name
     p = PRODUCTS[0]
     await update.message.reply_text(
         "Endi har bir mahsulot uchun sonini (miqdorini) kiriting.\n"
@@ -417,7 +421,11 @@ def main():
 
     app.add_handler(conv)
     log.info("Bot ishga tushdi...")
-    app.run_polling()
+    # drop_pending_updates=True — ishga tushganda eski/qolib ketgan
+    # xabarlarni (masalan qayta deploy paytida to'planib qolgan
+    # so'rovlarni) tashlab yuboradi, shu bilan takrorlanish (bitta
+    # savolni 2 marta berish) muammosining oldini oladi.
+    app.run_polling(drop_pending_updates=True)
 
 
 if __name__ == "__main__":
